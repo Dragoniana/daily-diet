@@ -20,7 +20,8 @@ import {
   CheckShort,
   CheckLong,
   XWrapper,
-  XLine,
+  XLineLeft,
+  XLineRight,
 } from './styles';
 
 type NavigationProps = NativeStackNavigationProp<AppRoutesParamList>;
@@ -44,19 +45,19 @@ export function Feedback() {
     Animated.parallel([
       Animated.spring(scale, {
         toValue: 1,
-        friction: 3,
+        friction: 4,
         tension: 90,
         useNativeDriver: true,
       }),
       Animated.timing(opacity, {
         toValue: 1,
-        duration: 500,
+        duration: 450,
         useNativeDriver: true,
       }),
       Animated.timing(rotate, {
         toValue: 1,
-        duration: 500,
-        easing: Easing.out(Easing.back(1.5)),
+        duration: 450,
+        easing: Easing.out(Easing.back(1.3)),
         useNativeDriver: true,
       }),
     ]).start();
@@ -64,7 +65,7 @@ export function Feedback() {
 
   const rotation = rotate.interpolate({
     inputRange: [0, 1],
-    outputRange: ['-25deg', '0deg'],
+    outputRange: ['-15deg', '0deg'],
   });
 
   return (
@@ -101,8 +102,8 @@ export function Feedback() {
               </CheckWrapper>
             ) : (
               <XWrapper>
-                <XLine rotation="45deg" />
-                <XLine rotation="-45deg" />
+                <XLineLeft />
+                <XLineRight />
               </XWrapper>
             )}
           </IconCircle>

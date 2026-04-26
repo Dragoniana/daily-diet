@@ -4,10 +4,6 @@ type FeedbackStyleProps = {
   isOnDiet: boolean;
 };
 
-type XLineStyleProps = {
-  rotation: string;
-};
-
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.purple_100};
@@ -68,48 +64,55 @@ export const IconCircle = styled.View<FeedbackStyleProps>`
 `;
 
 export const CheckWrapper = styled.View`
-  width: 90px;
-  height: 70px;
+  width: 100px;
+  height: 80px;
 
   position: relative;
-  transform: rotate(-45deg);
 `;
 
 export const CheckShort = styled.View`
   position: absolute;
-  left: 6px;
-  top: 34px;
 
-  width: 32px;
-  height: 16px;
+  width: 22px;
+  height: 14px;
+
+  left: 24px;
+  top: 44px;
 
   border-radius: 8px;
 
   background-color: ${({ theme }) => theme.colors.green_dark};
+
+  transform: rotate(45deg);
 `;
 
 export const CheckLong = styled.View`
   position: absolute;
-  left: 26px;
-  top: 12px;
 
-  width: 16px;
-  height: 70px;
+  width: 62px;
+  height: 14px;
+
+  left: 38px;
+  top: 36px;
 
   border-radius: 8px;
 
   background-color: ${({ theme }) => theme.colors.green_dark};
+
+  transform: rotate(-45deg);
 `;
 
 export const XWrapper = styled.View`
-  width: 90px;
-  height: 90px;
+  width: 100px;
+  height: 100px;
 
   align-items: center;
   justify-content: center;
+
+  position: relative;
 `;
 
-export const XLine = styled.View<XLineStyleProps>`
+export const XLineLeft = styled.View`
   position: absolute;
 
   width: 90px;
@@ -119,5 +122,18 @@ export const XLine = styled.View<XLineStyleProps>`
 
   background-color: ${({ theme }) => theme.colors.red_dark};
 
-  transform: rotate(${({ rotation }) => rotation});
+  transform: rotate(45deg);
+`;
+
+export const XLineRight = styled.View`
+  position: absolute;
+
+  width: 90px;
+  height: 16px;
+
+  border-radius: 8px;
+
+  background-color: ${({ theme }) => theme.colors.red_dark};
+
+  transform: rotate(-45deg);
 `;
