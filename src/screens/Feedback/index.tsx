@@ -16,7 +16,11 @@ import {
   Subtitle,
   Highlight,
   IconCircle,
-  IconText,
+  CheckWrapper,
+  CheckShort,
+  CheckLong,
+  XWrapper,
+  XLine,
 } from './styles';
 
 type NavigationProps = NativeStackNavigationProp<AppRoutesParamList>;
@@ -64,7 +68,7 @@ export function Feedback() {
   });
 
   return (
-    <Container isOnDiet={isOnDiet}>
+    <Container>
       <Content>
         <Title isOnDiet={isOnDiet}>
           {isOnDiet ? 'Continue assim!' : 'Que pena!'}
@@ -90,7 +94,17 @@ export function Feedback() {
           }}
         >
           <IconCircle isOnDiet={isOnDiet}>
-            <IconText isOnDiet={isOnDiet}>{isOnDiet ? '✓' : '×'}</IconText>
+            {isOnDiet ? (
+              <CheckWrapper>
+                <CheckShort />
+                <CheckLong />
+              </CheckWrapper>
+            ) : (
+              <XWrapper>
+                <XLine rotation="45deg" />
+                <XLine rotation="-45deg" />
+              </XWrapper>
+            )}
           </IconCircle>
         </Animated.View>
 
