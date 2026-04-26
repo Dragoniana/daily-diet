@@ -64,8 +64,8 @@ export const IconCircle = styled.View<FeedbackStyleProps>`
 `;
 
 export const CheckWrapper = styled.View`
-  width: 100px;
-  height: 80px;
+  width: 110px;
+  height: 90px;
 
   position: relative;
 `;
@@ -73,11 +73,11 @@ export const CheckWrapper = styled.View`
 export const CheckShort = styled.View`
   position: absolute;
 
-  width: 22px;
-  height: 14px;
+  width: 42px;
+  height: 16px;
 
-  left: 24px;
-  top: 44px;
+  left: 15px;
+  top: 48px;
 
   border-radius: 8px;
 
@@ -89,11 +89,11 @@ export const CheckShort = styled.View`
 export const CheckLong = styled.View`
   position: absolute;
 
-  width: 62px;
-  height: 14px;
+  width: 78px;
+  height: 16px;
 
-  left: 38px;
-  top: 36px;
+  left: 42px;
+  top: 39px;
 
   border-radius: 8px;
 
