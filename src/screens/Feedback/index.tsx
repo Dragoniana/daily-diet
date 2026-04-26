@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Animated } from 'react-native';
+import { Animated, Easing } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
@@ -15,8 +15,8 @@ import {
   Title,
   Subtitle,
   Highlight,
-  AnimationCircle,
-  AnimationIcon,
+  IconCircle,
+  IconText,
 } from './styles';
 
 type NavigationProps = NativeStackNavigationProp<AppRoutesParamList>;
@@ -28,8 +28,9 @@ export function Feedback() {
 
   const { isOnDiet } = route.params;
 
-  const scaleAnimation = useRef(new Animated.Value(0)).current;
-  const opacityAnimation = useRef(new Animated.Value(0)).current;
+  const scale = useRef(new Animated.Value(0)).current;
+  const opacity = useRef(new Animated.Value(0)).current;
+  const rotate = useRef(new Animated.Value(0)).current;
 
   function handleGoHome() {
     navigation.navigate('Home');
@@ -37,22 +38,33 @@ export function Feedback() {
 
   useEffect(() => {
     Animated.parallel([
-      Animated.spring(scaleAnimation, {
+      Animated.spring(scale, {
         toValue: 1,
-        friction: 4,
-        tension: 80,
+        friction: 3,
+        tension: 90,
         useNativeDriver: true,
       }),
-      Animated.timing(opacityAnimation, {
+      Animated.timing(opacity, {
         toValue: 1,
-        duration: 450,
+        duration: 500,
+        useNativeDriver: true,
+      }),
+      Animated.timing(rotate, {
+        toValue: 1,
+        duration: 500,
+        easing: Easing.out(Easing.back(1.5)),
         useNativeDriver: true,
       }),
     ]).start();
   }, []);
 
+  const rotation = rotate.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['-25deg', '0deg'],
+  });
+
   return (
-    <Container>
+    <Container isOnDiet={isOnDiet}>
       <Content>
         <Title isOnDiet={isOnDiet}>
           {isOnDiet ? 'Continue assim!' : 'Que pena!'}
@@ -73,13 +85,13 @@ export function Feedback() {
 
         <Animated.View
           style={{
-            opacity: opacityAnimation,
-            transform: [{ scale: scaleAnimation }],
+            opacity,
+            transform: [{ scale }, { rotate: rotation }],
           }}
         >
-          <AnimationCircle isOnDiet={isOnDiet}>
-            <AnimationIcon>{isOnDiet ? '✓' : '×'}</AnimationIcon>
-          </AnimationCircle>
+          <IconCircle isOnDiet={isOnDiet}>
+            <IconText isOnDiet={isOnDiet}>{isOnDiet ? '✓' : '×'}</IconText>
+          </IconCircle>
         </Animated.View>
 
         <Button title="Ir para a página inicial" onPress={handleGoHome} />

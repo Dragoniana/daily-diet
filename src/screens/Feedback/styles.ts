@@ -4,9 +4,11 @@ type FeedbackStyleProps = {
   isOnDiet: boolean;
 };
 
-export const Container = styled.View`
+export const Container = styled.View<FeedbackStyleProps>`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.purple_100};
+
+  background-color: ${({ theme, isOnDiet }) =>
+    isOnDiet ? theme.colors.green_light : theme.colors.red_light};
 
   align-items: center;
   justify-content: center;
@@ -44,7 +46,7 @@ export const Highlight = styled.Text`
   font-weight: bold;
 `;
 
-export const AnimationCircle = styled.View<FeedbackStyleProps>`
+export const IconCircle = styled.View<FeedbackStyleProps>`
   width: 180px;
   height: 180px;
 
@@ -53,18 +55,22 @@ export const AnimationCircle = styled.View<FeedbackStyleProps>`
   align-items: center;
   justify-content: center;
 
-  background-color: ${({ theme, isOnDiet }) =>
-    isOnDiet ? theme.colors.green_light : theme.colors.red_light};
+  background-color: ${({ theme }) => theme.colors.white};
 
-  border: 4px solid
+  border: 5px solid
     ${({ theme, isOnDiet }) =>
       isOnDiet ? theme.colors.green_dark : theme.colors.red_dark};
 
   margin-bottom: 40px;
+
+  elevation: 4;
 `;
 
-export const AnimationIcon = styled.Text`
-  font-size: 96px;
+export const IconText = styled.Text<FeedbackStyleProps>`
+  font-size: 110px;
+  line-height: 120px;
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.gray_100};
+
+  color: ${({ theme, isOnDiet }) =>
+    isOnDiet ? theme.colors.green_dark : theme.colors.red_dark};
 `;
