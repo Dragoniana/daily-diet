@@ -1,5 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { Animated, Easing } from 'react-native';
+import { Animated } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { useTheme } from 'styled-components/native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
@@ -16,12 +18,6 @@ import {
   Subtitle,
   Highlight,
   IconCircle,
-  CheckWrapper,
-  CheckShort,
-  CheckLong,
-  XWrapper,
-  XLineLeft,
-  XLineRight,
 } from './styles';
 
 type NavigationProps = NativeStackNavigationProp<AppRoutesParamList>;
@@ -30,12 +26,15 @@ type RouteProps = NativeStackScreenProps<AppRoutesParamList, 'Feedback'>['route'
 export function Feedback() {
   const navigation = useNavigation<NavigationProps>();
   const route = useRoute<RouteProps>();
+  const theme = useTheme();
 
   const { isOnDiet } = route.params;
 
   const scale = useRef(new Animated.Value(0)).current;
   const opacity = useRef(new Animated.Value(0)).current;
-  const rotate = useRef(new Animated.Value(0)).current;
+
+  const iconColor = isOnDiet ? theme.colors.green_dark : theme.colors.red_dark;
+  const iconName = isOnDiet ? 'check' : 'x';
 
   function handleGoHome() {
     navigation.navigate('Home');
@@ -54,19 +53,8 @@ export function Feedback() {
         duration: 450,
         useNativeDriver: true,
       }),
-      Animated.timing(rotate, {
-        toValue: 1,
-        duration: 450,
-        easing: Easing.out(Easing.back(1.3)),
-        useNativeDriver: true,
-      }),
     ]).start();
   }, []);
-
-  const rotation = rotate.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['-15deg', '0deg'],
-  });
 
   return (
     <Container>
@@ -91,21 +79,11 @@ export function Feedback() {
         <Animated.View
           style={{
             opacity,
-            transform: [{ scale }, { rotate: rotation }],
+            transform: [{ scale }],
           }}
         >
           <IconCircle isOnDiet={isOnDiet}>
-            {isOnDiet ? (
-              <CheckWrapper>
-                <CheckShort />
-                <CheckLong />
-              </CheckWrapper>
-            ) : (
-              <XWrapper>
-                <XLineLeft />
-                <XLineRight />
-              </XWrapper>
-            )}
+            <Feather name={iconName} size={96} color={iconColor} />
           </IconCircle>
         </Animated.View>
 
