@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+import { Animated } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   NativeStackNavigationProp,
@@ -13,7 +15,8 @@ import {
   Title,
   Subtitle,
   Highlight,
-  ImagePlaceholder,
+  AnimationCircle,
+  AnimationIcon,
 } from './styles';
 
 type NavigationProps = NativeStackNavigationProp<AppRoutesParamList>;
@@ -25,9 +28,28 @@ export function Feedback() {
 
   const { isOnDiet } = route.params;
 
+  const scaleAnimation = useRef(new Animated.Value(0)).current;
+  const opacityAnimation = useRef(new Animated.Value(0)).current;
+
   function handleGoHome() {
     navigation.navigate('Home');
   }
+
+  useEffect(() => {
+    Animated.parallel([
+      Animated.spring(scaleAnimation, {
+        toValue: 1,
+        friction: 4,
+        tension: 80,
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacityAnimation, {
+        toValue: 1,
+        duration: 450,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, []);
 
   return (
     <Container>
@@ -49,9 +71,16 @@ export function Feedback() {
           )}
         </Subtitle>
 
-        <ImagePlaceholder isOnDiet={isOnDiet}>
-          {isOnDiet ? 'Dentro da dieta' : 'Fora da dieta'}
-        </ImagePlaceholder>
+        <Animated.View
+          style={{
+            opacity: opacityAnimation,
+            transform: [{ scale: scaleAnimation }],
+          }}
+        >
+          <AnimationCircle isOnDiet={isOnDiet}>
+            <AnimationIcon>{isOnDiet ? '✓' : '×'}</AnimationIcon>
+          </AnimationCircle>
+        </Animated.View>
 
         <Button title="Ir para a página inicial" onPress={handleGoHome} />
       </Content>

@@ -6,7 +6,7 @@ type FeedbackStyleProps = {
 
 export const Container = styled.View`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.gray_700};
+  background-color: ${({ theme }) => theme.colors.purple_100};
 
   align-items: center;
   justify-content: center;
@@ -44,11 +44,11 @@ export const Highlight = styled.Text`
   font-weight: bold;
 `;
 
-export const ImagePlaceholder = styled.View<FeedbackStyleProps>`
-  width: 224px;
-  height: 224px;
+export const AnimationCircle = styled.View<FeedbackStyleProps>`
+  width: 180px;
+  height: 180px;
 
-  border-radius: 112px;
+  border-radius: 90px;
 
   align-items: center;
   justify-content: center;
@@ -56,7 +56,15 @@ export const ImagePlaceholder = styled.View<FeedbackStyleProps>`
   background-color: ${({ theme, isOnDiet }) =>
     isOnDiet ? theme.colors.green_light : theme.colors.red_light};
 
-  color: ${({ theme }) => theme.colors.gray_100};
+  border: 4px solid
+    ${({ theme, isOnDiet }) =>
+      isOnDiet ? theme.colors.green_dark : theme.colors.red_dark};
 
-  margin-bottom: 32px;
+  margin-bottom: 40px;
+`;
+
+export const AnimationIcon = styled.Text`
+  font-size: 96px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.gray_100};
 `;
