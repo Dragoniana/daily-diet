@@ -4,6 +4,15 @@ type PercentCardStyleProps = {
   isOnDiet: boolean;
 };
 
+type FilterButtonStyleProps = {
+  isActive: boolean;
+  filterType: 'all' | 'onDiet' | 'offDiet';
+};
+
+type FilterButtonTextStyleProps = {
+  isActive: boolean;
+};
+
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.purple_100};
@@ -74,6 +83,66 @@ export const NewMealTitle = styled.Text`
   color: ${({ theme }) => theme.colors.gray_100};
 
   margin-bottom: 8px;
+`;
+
+export const FilterRow = styled.View`
+  width: 100%;
+
+  flex-direction: row;
+  gap: 8px;
+
+  margin-bottom: 16px;
+`;
+
+export const FilterButton = styled.TouchableOpacity<FilterButtonStyleProps>`
+  flex: 1;
+  height: 38px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  background-color: ${({ theme, isActive, filterType }) => {
+    if (!isActive) {
+      return theme.colors.gray_600;
+    }
+
+    if (filterType === 'onDiet') {
+      return theme.colors.green_light;
+    }
+
+    if (filterType === 'offDiet') {
+      return theme.colors.red_light;
+    }
+
+    return theme.colors.purple_200;
+  }};
+
+  border: 1px solid
+    ${({ theme, isActive, filterType }) => {
+      if (!isActive) {
+        return theme.colors.gray_500;
+      }
+
+      if (filterType === 'onDiet') {
+        return theme.colors.green_dark;
+      }
+
+      if (filterType === 'offDiet') {
+        return theme.colors.red_dark;
+      }
+
+      return theme.colors.purple_400;
+    }};
+`;
+
+export const FilterButtonText = styled.Text<FilterButtonTextStyleProps>`
+  font-size: ${({ theme }) => theme.font_size.sm}px;
+  font-weight: bold;
+
+  color: ${({ theme, isActive }) =>
+    isActive ? theme.colors.gray_100 : theme.colors.gray_300};
 `;
 
 export const SectionTitle = styled.Text`
