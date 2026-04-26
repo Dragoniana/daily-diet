@@ -4,7 +4,7 @@ export const Container = styled.View`
   width: 100%;
   height: 104px;
 
-  background-color: ${({ theme }) => theme.colors.gray_500};
+  background-color: ${({ theme }) => theme.colors.purple_200};
 
   align-items: center;
   justify-content: center;
@@ -27,7 +27,7 @@ export const BackButton = styled.TouchableOpacity`
 export const BackButtonText = styled.Text`
   font-size: 28px;
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.gray_200};
+  color: ${({ theme }) => theme.colors.purple_400};
 `;
 
 export const Title = styled.Text`

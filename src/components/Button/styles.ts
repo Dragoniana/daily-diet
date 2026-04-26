@@ -9,19 +9,21 @@ export const Container = styled.TouchableOpacity<ButtonStyleProps>`
   min-height: 50px;
   max-height: 50px;
 
-  border-radius: 6px;
+  border-radius: 10px;
 
   align-items: center;
   justify-content: center;
 
+  elevation: 2;
+
   ${({ theme, variant }) =>
     variant === 'solid'
       ? css`
-          background-color: ${theme.colors.gray_200};
+          background-color: ${theme.colors.purple_400};
         `
       : css`
-          background-color: transparent;
-          border: 1px solid ${theme.colors.gray_100};
+          background-color: ${theme.colors.white};
+          border: 1px solid ${theme.colors.purple_400};
         `}
 `;
 
@@ -35,6 +37,6 @@ export const Title = styled.Text<ButtonStyleProps>`
           color: ${theme.colors.white};
         `
       : css`
-          color: ${theme.colors.gray_100};
+          color: ${theme.colors.purple_400};
         `}
 `;
