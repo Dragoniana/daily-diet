@@ -100,7 +100,7 @@ export function MealDetails() {
         <StatusContainer>
           <StatusIndicator isOnDiet={meal.isOnDiet} />
           <StatusText>
-            {meal.isOnDiet ? 'dentro da dieta' : 'fora da dieta'}
+            {meal.isOnDiet ? 'Dentro da dieta' : 'Fora da dieta'}
           </StatusText>
         </StatusContainer>
       </Content>
